@@ -24,7 +24,7 @@ class Product(models.Model):
     price = models.DecimalField(default=0.00,max_digits=7, decimal_places=2)
     discount = models.DecimalField(default=0.00,max_digits=4, decimal_places=2)
     quantity = models.PositiveIntegerField(default=0)
-    category = models.ForeignKey(to=Categories, on_delete=models.CASCADE)
+    category = models.ForeignKey(to=Categories, on_delete=models.CASCADE, related_name='products')
 
     class Meta:
         db_table = 'product'
