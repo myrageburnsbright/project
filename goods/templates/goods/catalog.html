@@ -1,7 +1,7 @@
 {% extends "main/base.html" %}
 {% load static %}
 {% load tags_category %} 
-{% block css %}{% endblock css %}
+{% block css %}<link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}">{% endblock css %}
 
 {% block content %}
 
@@ -45,6 +45,14 @@
             <button type="submit" class="btn btn-primary mx-3 mt-3">Применить</button>
         </form>
     </div>
+
+    {% if request.GET.q %}
+        <h3 class="nt-4">Результаты поиска по запросы {{request.GET.q}} </h3>
+        {% if not goods %}
+            <h2 class="mt-4">По запросу ничего не найдено</h2>
+        {% endif %}
+    {% endif %}
+
     <!-- Карта товара -->
      {% for product in goods %}
     <div class="col-lg-4 col-md-6 p-4">
@@ -56,9 +64,25 @@
             {% endif %}
             <div class="card-body">
                 <a href="{% url 'catalog:product' product.slug %}">
-                    <p class="card-title">{{product.name}}</p>
+                    <p class="card-title">
+                        {% autoescape off %}
+                        {% if product.headline %}
+                            {{product.headline}}
+                        {%else%}
+                            {{product.name}}
+                        {% endif %}
+                        {% endautoescape %}
+                    </p>
                 </a>
-                <p class="card-text ">{{product.description|truncatechars:35}}</p>
+                <p class="card-text ">
+                    {% autoescape off %}
+                    {% if product.bodyline %}
+                        {{product.bodyline|truncatechars:100}}
+                    {% else %}
+                        {{product.description|truncatechars:35}}
+                    {% endif %}
+                    {% endautoescape %}
+                </p>
                 <p class="product_id">id: {{ product.display_id }}</p>
                 <div class="d-flex justify-content-between">
                     {% if product.discount %}
@@ -79,6 +103,8 @@
     {% endfor %}
 
 </div>
+
+{% if goods %}
 <!-- Пагинация -->
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center my-4">
@@ -106,8 +132,10 @@
     </ul>
 </nav>
 </div>
+{% endif %}
 
 {% endblock content %}
+
 
 {% block footer %}
 <footer class="py-4 bg-dark">

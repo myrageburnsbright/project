@@ -21,7 +21,7 @@ def catalog(request, category_slug = None) :
         goods = goods.filter(discount__gt=0)
     if order_by and order_by != "default":
         goods = goods.order_by(order_by)
-    goods = get_list_or_404(goods)
+    
     paginator = Paginator(goods, 3)
     current_page = paginator.page(page)
 
