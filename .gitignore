@@ -1,4 +1,5 @@
 venv/
+migrations/
 .pylintrc
 __pycache__/
 
