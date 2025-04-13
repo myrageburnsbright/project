@@ -1,3 +1,4 @@
+from django.urls import reverse
 from pyexpat import model
 from tabnanny import verbose
 from django.db import models
@@ -33,8 +34,12 @@ class Product(models.Model):
         ordering = ('id', )
 
     def __str__(self):
-        return f'{self.name} - Col {self.quantity}'
+        return f'{self.name} - Quantity: {self.quantity}'
     
+    def get_absolute_url(self):
+        return reverse("catalog:product", kwargs={"product_slug": self.slug})
+    
+
     def display_id(self):
         return f"{self.id:05}"
     
