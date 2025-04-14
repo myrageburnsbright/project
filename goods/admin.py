@@ -25,6 +25,7 @@ class ProductsAdmin(admin.ModelAdmin):
     ]
     list_editable = [
         'discount',
+        'quantity',
     ]
     search_fields = [
         'name', 'description'
