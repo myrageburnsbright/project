@@ -1,6 +1,7 @@
+from ast import pattern
 from enum import Flag
 from django import forms
-
+import re 
 class CreateOrderForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
@@ -15,6 +16,19 @@ class CreateOrderForm(forms.Form):
             ("1",True),
         ],)
     
+
+    def clean_phone_number(self):
+        data = self.cleaned_data['phone_number']
+
+        if not data.isdigit():
+            raise forms.ValidationError("Номер должен состоять только из цифр")
+        
+        pattern = re.compile(r'^\d{10}$')
+        if not pattern.match(data):
+            raise forms.ValidationError("Неверный формат номера")
+
+        return data       
+
     # first_name = forms.CharField(
     #     widget=forms.TextInput(
     #         attrs={
