@@ -24,7 +24,8 @@ class Cart(models.Model):
         db_table = 'cart'
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
-
+        ordering = ("id",)
+        
     objects = CartQuerySet.as_manager()
 
     def products_price(self):
