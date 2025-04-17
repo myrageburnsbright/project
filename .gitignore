@@ -10,3 +10,4 @@ db.sqlite3
 media/
 
 templates-for-Django-4-course-Home-main/
+cache/

@@ -93,6 +93,12 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": BASE_DIR / "cache",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -148,3 +154,4 @@ AUTH_USER_MODEL ='users.User'
 
 LOGIN_URL ='/user/login/'
 LOGIN_REDIRECT_URL = '/'
+
