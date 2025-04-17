@@ -165,9 +165,9 @@ $(document).ready(function () {
                 // Изменяем количество товаров в корзине
                 var goodsInCartCount = $("#goods-in-cart-count");
                 var cartCount = parseInt(goodsInCartCount.text() || 0);
-                cartCount += change;
+                cartCount = data.quantity;
                 goodsInCartCount.text(cartCount);
-
+                
                 // Меняем содержимое корзины
                 var cartItemsContainer = $("#cart-items-container");
                 cartItemsContainer.html(data.cart_items_html);
